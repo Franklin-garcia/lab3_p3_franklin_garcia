@@ -14,33 +14,38 @@ void listar_ordenado(vector<string>);//ejericio 2
 int  validar_dias(string);//ejercicio 2
 string fechas (string);// ejericio 2
 string dia_semana(string);//ejericio 2
-
-void ordenar_vector(vector<int>);//ejericio1
-
+void orden_vector(vector<int>,int);//ejericio1
+int*crear_arreglo(int);//elercicio1
+void liberar_memoria(int*,int);//ejercicio1
 int main(){
 	bool seguir=true;
 	int opcion;
 	vector<string>date;//vector del ejercicio 2 para las fechas
-	vector<int>vector1;//vector del ejericio 1 para las medianas
 	while(seguir){
-		cout<<"ingrese la opcion 1 2 3 4.salir"<<endl;
+		cout<<"ingrese la opcion 1.medianas  2.fecha 3.salir"<<endl;
 		cin>>opcion;
 		switch(opcion){
 			case 1:{
+				vector <int>lista;
 				int tam;
 				cout<<"Ingrese numero de elementos"<<endl;
 				cin>>tam;
 				srand(time(NULL));
-
 				int ran;
 				for(int i=0;i<tam;i++){
 					ran=rand()%30;
-					vector1.push_back(ran);
+					lista.push_back(ran);
 				}
-				for(int i=0;i<vector1.size();i++){
-					cout<<" "<<vector1.at(i);
+				for(int j=0;j<lista.size();j++){
+					cout<<" "<<lista.at(j);
 				}
-				
+				cout<<""<<endl;
+				if(tam<=5){
+					orden_vector(lista,tam);
+				}else if(tam>5){
+			
+				}								
+					
 			}break;
 			case 2:{
 				int op,o;
@@ -69,6 +74,7 @@ int main(){
 			case 3:{
 				seguir=false;
 			}break;
+			
 		}
 	}
 
@@ -302,20 +308,21 @@ void listar_ordenado(vector<string> date){
 
 //ordenar vector
 
-void ordenar_vector(vector<int> vector1){
+void orden_vector(vector<int> vector1,int tam){
 	int temp=0;
-	for(int i=0;i<vector1.size();i++){
-		for(int j=0;j<vector1.size()-1;j++){
-			if(vector1.at(j) > vector1.at(j+1)){
-				temp=vector1.at(j);
-				vector1.at(j)=vector1.at(j+1);
-				vector1.at(j+1)=temp;
+	for(int i=0;i<vector1.size()-1;i++){
+		for(int j=0;j<vector1.size();j++){
+			if(vector1.at(i) < vector1.at(j)){
+				temp=vector1.at(i);
+				vector1.at(i)=vector1.at(j);
+				vector1.at(j)=temp;
+				
 			}
 		}
 	}
+	
 	for(int t=0;t<vector1.size();t++){
-		cout<<vector1.at(t);
+		cout<<vector1.at(t)<<endl;
 	}
-	cout<<endl;
 }
 
