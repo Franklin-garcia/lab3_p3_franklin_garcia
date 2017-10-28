@@ -9,23 +9,24 @@
 #include <cstdlib>
 using namespace std;
 
-void listar_todo(vector<string>);//ejercicio 3
-void listar_ordenado(vector<string>);//ejericio 3
-void listar_consulta(vector<string>);//ejericio 3
-int  validar_dias(string);//ejercicio 3
-string fechas (string);// ejericio 3
-string dia_semana(string);//ejericio 3
+void listar_todo(vector<string>);//ejercicio 2
+void listar_ordenado(vector<string>);//ejericio 2
+int  validar_dias(string);//ejercicio 2
+string fechas (string);// ejericio 2
+string dia_semana(string);//ejericio 2
+
+void ordenar_vector(vector<int>);//ejericio1
 
 int main(){
 	bool seguir=true;
 	int opcion;
-	vector<string>date;//vector del ejercicio 3 para las fechas
+	vector<string>date;//vector del ejercicio 2 para las fechas
+	vector<int>vector1;//vector del ejericio 1 para las medianas
 	while(seguir){
 		cout<<"ingrese la opcion 1 2 3 4.salir"<<endl;
 		cin>>opcion;
 		switch(opcion){
 			case 1:{
-				vector<int> vector1;
 				int tam;
 				cout<<"Ingrese numero de elementos"<<endl;
 				cin>>tam;
@@ -42,9 +43,6 @@ int main(){
 				
 			}break;
 			case 2:{
-			
-			}break;
-			case 3:{
 				int op,o;
 				cout<<"imgrese opcion 1.agregar 2.listar"<<endl;
 				cin>>op;
@@ -59,15 +57,16 @@ int main(){
 					}
 					date.push_back (fechas(fecha));
 				}else if(op==2){
-					cout<<"Ingrese op 1.listar todo 2.listar por consulta";
+					cout<<"Ingrese op 1.listar todo 2.listar ordenado";
 					cin>>o;
 					if(o==1){
 						listar_todo(date);
-					}else if(0==2){
+					}else if(o==2){
+						listar_ordenado(date);
 					}
 				}					
 			}break;
-			case 4:{
+			case 3:{
 				seguir=false;
 			}break;
 		}
@@ -78,7 +77,7 @@ return 0;
 }
 
 
-//realizar string con la fecha (ejercicio 3)
+//realizar string con la fecha (ejercicio 2)
 string fechas(string fecha){
 	string d="",m="";
 
@@ -124,60 +123,21 @@ string fechas(string fecha){
 	nueva_fecha+=",";
 	nueva_fecha+=dia;
 	nueva_fecha+=" de ";
-	nueva_fecha+=m;
+	
+nueva_fecha+=m;
 	nueva_fecha+=" del ";
 	nueva_fecha+=year; 
 
 return nueva_fecha;
 }
-//listar todo(ejercicio 3)
+//listar todo(ejercicio 2)
 void listar_todo(vector<string> date){
 	for(int i=0;i<date.size();i++){
 		cout<<date.at(i)<<endl;
 	}
 }
 
-//listar consulta(ejercicio3)
-void listar_consulta(vector<string> date){
-	int opcion;
-	cout<<"Ingrese opcion 1.por mes"<<endl<<" 2.por un año"<<endl;
-	cin>> opcion;
-	if(opcion==1){
-		for(int i=0;i<date.size();i++){
-			if(date.at(i).compare("enero")){
-				cout<<date.at(i)<<endl;
-			}else if(date.at(i).compare("febrero")){
-				cout<<date.at(i)<<endl;
-			}else if(date.at(i).compare("marzo")){
-				cout<<date.at(i)<<endl;
-			}else if(date.at(i).compare("abril")){
-				cout<<date.at(i)<<endl;
-			}else if(date.at(i).compare("mayo")){
-				cout<<date.at(i)<<endl;
-			}else if(date.at(i).compare("junio")){
-				cout<<date.at(i)<<endl;
-			}else if(date.at(i).compare("julio")){
-				cout<<date.at(i)<<endl;
-			}else if(date.at(i).compare("agosto")){
-				cout<<date.at(i)<<endl;
-			}else if(date.at(i).compare("septiembre")){
-				cout<<date.at(i)<<endl;
-			}else if(date.at(i).compare("octubre")){
-				cout<<date.at(i)<<endl;
-			}else if(date.at(i).compare("noviembre")){
-				cout<<date.at(i)<<endl;
-			}else if(date.at(i).compare("diciembre")){
-				cout<<date.at(i)<<endl;
-			}
-		}		
-	}else if(opcion==2){
-		for(int i=0;i<date.size();i++){
-			if(date.at(i).compare("")){
-			}
-		}
-	}
-}
-//validar dias,mes(ejercicio 3)
+//validar dias,mes(ejercicio 2)
 int validar_dias(string fecha){
 	int retorno=0;
 	string mes="",dia="";
@@ -220,7 +180,7 @@ int validar_dias(string fecha){
 
 return retorno;
 }
-//calcula el dia (ejericio3)
+//calcula el dia (ejericio2)
 string dia_semana(string fecha){
 	string nuevo_dia="algo"; 
         string dia="";
@@ -232,10 +192,16 @@ string dia_semana(string fecha){
         string mes="";
                 mes+=fecha.at(4);
                 mes+=fecha.at(5);
-	int d,m,a,month,e,s,number,day;
+	string anio="";
+		anio+=fecha.at(0);
+		anio+=fecha.at(1);
+		anio+=fecha.at(2);
+		anio+=fecha.at(3);
+	int d,m,a,month,e,number,day,old,s;
 	d=atoi(dia.c_str());
 	m=atoi(mes.c_str());
 	a=atoi(year.c_str());
+	old=atoi(anio.c_str());
 	if(m==1){
 		month=0;
 	}else if(m==2){
@@ -262,8 +228,12 @@ string dia_semana(string fecha){
 		month=5;
 	}
 	e=a/4;
-	number=d+month+a+e+6;
-	cout<<"n="<<d<<","<<month<<","<<a<<","<<e<<","<<6<<endl;
+	if(old>=2000){
+		s=6;
+	}else if(old<2000){
+		s=0;
+	}
+	number=d+month+a+e+s;
 	day=number%7;
 	if(day==1){
 		nuevo_dia="lunes";
@@ -280,7 +250,72 @@ string dia_semana(string fecha){
 	}else if(day==0){
 		nuevo_dia="domingo";
 	}
-	cout<<"number"<<day<<endl;	
+	
 return nuevo_dia;
+}
+///listar ordenado
+void listar_ordenado(vector<string> date){
+	for(int i=0;i<date.size();i++){
+		size_t aguja1=date.at(i).find(",");
+		if(date.at(i).substr(0,aguja1).compare("lunes")==0){
+			cout<<date.at(i)<<endl;
+		}
+	} 	
+        for(int i=0;i<date.size();i++){
+                size_t aguja1=date.at(i).find(",");
+                if(date.at(i).substr(0,aguja1).compare("martes")==0){
+                        cout<<date.at(i)<<endl;
+                }
+        }
+        for(int i=0;i<date.size();i++){
+                size_t aguja1=date.at(i).find(",");
+                if(date.at(i).substr(0,aguja1).compare("miercoles")==0){
+                        cout<<date.at(i)<<endl;
+                }
+        }
+        for(int i=0;i<date.size();i++){
+                size_t aguja1=date.at(i).find(",");
+                if(date.at(i).substr(0,aguja1).compare("jueves")==0){
+                        cout<<date.at(i)<<endl;
+                }
+        }
+        for(int i=0;i<date.size();i++){
+                size_t aguja1=date.at(i).find(",");
+                if(date.at(i).substr(0,aguja1).compare("viernes")==0){
+                        cout<<date.at(i)<<endl;
+                }
+        }
+        for(int i=0;i<date.size();i++){
+                size_t aguja1=date.at(i).find(",");
+                if(date.at(i).substr(0,aguja1).compare("sabado")==0){
+                        cout<<date.at(i)<<endl;
+                }
+        }
+        for(int i=0;i<date.size();i++){
+                size_t aguja1=date.at(i).find(",");
+                if(date.at(i).substr(0,aguja1).compare("domingo")==0){
+                        cout<<date.at(i)<<endl;
+                }
+        }
+
+}
+
+//ordenar vector
+
+void ordenar_vector(vector<int> vector1){
+	int temp=0;
+	for(int i=0;i<vector1.size();i++){
+		for(int j=0;j<vector1.size()-1;j++){
+			if(vector1.at(j) > vector1.at(j+1)){
+				temp=vector1.at(j);
+				vector1.at(j)=vector1.at(j+1);
+				vector1.at(j+1)=temp;
+			}
+		}
+	}
+	for(int t=0;t<vector1.size();t++){
+		cout<<vector1.at(t);
+	}
+	cout<<endl;
 }
 
